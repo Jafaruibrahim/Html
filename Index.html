@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Daily Countdown</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #0b1f3a;
+      color: gold;
+      font-family: Arial, sans-serif;
+      font-size: 50px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div id="countdown"></div>
+
+<script>
+  const totalDays = 10;
+
+  // Save start date (only first time)
+  if (!localStorage.getItem("startDate")) {
+    localStorage.setItem("startDate", new Date().toDateString());
+  }
+
+  const startDate = new Date(localStorage.getItem("startDate"));
+  const today = new Date();
+
+  // Reset time to midnight (important for accurate day count)
+  startDate.setHours(0,0,0,0);
+  today.setHours(0,0,0,0);
+
+  // Days passed
+  const diffTime = today - startDate;
+  const daysPassed = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  // Subtract 1 extra so today shows 9
+  let remaining = totalDays - daysPassed - 1;
+
+  if (remaining < 0) remaining = 0;
+
+  if (remaining === 0) {
+    document.getElementById("countdown").textContent = "Finished!";
+  } else {
+    document.getElementById("countdown").textContent =
+      "Remaining: " + remaining + " day(s)";
+  }
+</script>
+
+</body>
+</html>
+
+  
+
+
